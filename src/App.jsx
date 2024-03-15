@@ -1,12 +1,35 @@
+import { useState } from "react";
 import "./App.css";
+import Cards from "./compo/Cards";
+import citiesData from './compo/data'
 
-function App() {
+
+function App(id) {
+
+  const [citiesDataa, setcitiesDataa] = useState(citiesData)
+
+  
+  function removeHandler(id) {
+    const newdata = citiesDataa.filter( x => x.id !== id)
+    setcitiesDataa(newdata);
+  }
+
+  if (citiesDataa.length===0){
+    return (
+      <div className="refresh">
+        <h2>
+          NO tours left 
+        </h2>
+        <button className="btnw" onClick={()=> setcitiesDataa(citiesData )}>Refresh </button>
+      </div>
+    )
+  }
+
   return (
-    <main className="flex justify-center gap-4 flex-col min-h-screen">
-      <h1 className="text-3xl text-center font-bold underline">React & Tailwind CSS Starter Pack</h1>
-      <p className="text-center text-xl">This is a starter pack for React & Tailwind CSS projects.</p>
-      <img src="https://bit.ly/3wsmzTy" alt="meme" className="mx-auto" />
-    </main>
+    <div>
+  
+      <Cards citiesDataa={citiesDataa} removeHandler={removeHandler} ></Cards>
+    </div>
   );
 }
 
